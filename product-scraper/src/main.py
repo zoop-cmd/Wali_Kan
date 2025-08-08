@@ -20,8 +20,18 @@ app.register_blueprint(user_bp, url_prefix='/api')
 app.register_blueprint(scraper_bp, url_prefix='/api')
 app.register_blueprint(admin_bp, url_prefix='/api/admin')
 
+## Detect whether we're running on Render or locally
+
+if os.environ.get("RENDER"):
+    db_path = os.path.join('/tmp', 'app.db')  # ✅ writable path on Render
+else:
+    db_path = os.path.join(os.path.dirname(__file__), 'database', 'app.db')  # ✅ local dev
+
 # uncomment if you need to use database
-app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{os.path.join(os.path.dirname(__file__), 'database', 'app.db')}"
+app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{db_path}"
+
+#app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{os.path.join(os.path.dirname(__file__), 'database', 'app.db')}"
+
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 with app.app_context():
