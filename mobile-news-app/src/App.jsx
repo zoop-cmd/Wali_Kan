@@ -10,7 +10,7 @@ import './App.css'
 const RSS_PROXY = 'https://api.rss2json.com/v1/api.json?rss_url='
 
 // Product scraper API endpoint
-const SCRAPER_API = 'http://localhost:5000/api'
+const SCRAPER_API = 'https://wali-kan-be.onrender.com/api'
 
 // Newspaper-style category colors
 const categoryColors = {
